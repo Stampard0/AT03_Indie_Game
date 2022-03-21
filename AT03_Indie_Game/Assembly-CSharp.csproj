@@ -55,8 +55,13 @@
   <ItemGroup>
     <Compile Include="Assets\Code\FiniteStateMachine.cs" />
     <Compile Include="Assets\Code\PlayerController.cs" />
-    <Compile Include="Assets\Code\MouseLook.cs" />
     <Compile Include="Assets\Code\Enemy.cs" />
+    <Compile Include="Assets\Code\MouseLook.cs" />
+    <Compile Include="Assets\Code\Interaction.cs" />
+    <Compile Include="Assets\Code\TestInteraction.cs" />
+    <Compile Include="Assets\Code\TestInteractionToo.cs" />
+    <Compile Include="Assets\Code\TestInteraction1.cs" />
+    <Compile Include="Assets\Code\TestInteractionToo1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
