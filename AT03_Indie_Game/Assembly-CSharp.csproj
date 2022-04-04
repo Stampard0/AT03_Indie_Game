@@ -55,16 +55,24 @@
   <ItemGroup>
     <Compile Include="Assets\Code\FiniteStateMachine.cs" />
     <Compile Include="Assets\Code\Interaction.cs" />
+    <Compile Include="Assets\Code\MenuNavigation.cs" />
     <Compile Include="Assets\Code\PlayerController.cs" />
+    <Compile Include="Assets\Code\MenuButton.cs" />
     <Compile Include="Assets\Code\TestInteraction1.cs" />
     <Compile Include="Assets\Code\TestInteractionToo.cs" />
     <Compile Include="Assets\Code\Enemy.cs" />
     <Compile Include="Assets\Code\TestInteraction.cs" />
     <Compile Include="Assets\Code\MouseLook.cs" />
-    <Compile Include="Assets\Code\TestInteractionToo1.cs" />
-    <Compile Include="Assets\Code\MenuButton.cs" />
-    <Compile Include="Assets\Code\MenuNavigation.cs" />
     <Compile Include="Assets\Code\TestingScript.cs" />
+    <Compile Include="Assets\Code\TestInteractionToo1.cs" />
+    <Compile Include="Assets\Third Party\Supercyan Character Pack Free Sample\Scripts\DemoFree.cs" />
+    <Compile Include="Assets\Third Party\Supercyan Character Pack Free Sample\Scripts\FreeCameraLogic.cs" />
+    <Compile Include="Assets\Third Party\Supercyan Character Pack Free Sample\Scripts\SimpleSampleCharacterControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Third Party\Supercyan Character Pack Free Sample\Shaders\Legacy\CelShader.shader" />
+    <None Include="Assets\Third Party\Supercyan Character Pack Free Sample\Shaders\SupercyanShader.shader" />
+    <None Include="Assets\Third Party\Supercyan Character Pack Free Sample\Shaders\SupercyanShaderLighting.cginc" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

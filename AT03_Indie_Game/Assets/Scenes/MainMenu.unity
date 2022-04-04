@@ -581,7 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4154e06e15c778d4d85eb49dc35287e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColour: {r: 1, g: 1, b: 1, a: 1}
+  defaultColour: {r: 1, g: 1, b: 1, a: 0}
   selectedColour: {r: 0, g: 0, b: 0, a: 1}
   highlightedColour: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
   onActivate:
@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4154e06e15c778d4d85eb49dc35287e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColour: {r: 1, g: 1, b: 1, a: 1}
+  defaultColour: {r: 1, g: 1, b: 1, a: 0}
   selectedColour: {r: 0, g: 0, b: 0, a: 1}
   highlightedColour: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
   onActivate:
@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4154e06e15c778d4d85eb49dc35287e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColour: {r: 1, g: 1, b: 1, a: 1}
+  defaultColour: {r: 1, g: 1, b: 1, a: 0}
   selectedColour: {r: 0, g: 0, b: 0, a: 1}
   highlightedColour: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
   onActivate:

@@ -30,11 +30,12 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         TryGetComponent(out image);
         //Try get menu instance reference
         transform.parent.TryGetComponent(out instance);
+        image.color = defaultColour;
     }
 
     private void Start()
     {
-        image.color = defaultColour;
+        
     }
 
     
