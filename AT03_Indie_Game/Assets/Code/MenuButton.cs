@@ -35,7 +35,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private void Start()
     {
-        
+        image.color = defaultColour;
     }
 
     

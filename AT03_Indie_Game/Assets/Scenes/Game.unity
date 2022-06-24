@@ -523,13 +523,13 @@ MonoBehaviour:
   viewRadius: 5
   player: {fileID: 802362199}
   idleState:
-    idleTimeRange: {x: 0, y: 0}
+    idleTimeRange: {x: 1, y: 5}
     idleClip: {fileID: 0}
   wanderState:
-    wanderSpeed: 0
+    wanderSpeed: 1
     wanderClip: {fileID: 0}
   chaseState:
-    chaseSpeed: 0
+    chaseSpeed: 2
     chaseClip: {fileID: 0}
 --- !u!136 &968225154
 CapsuleCollider:

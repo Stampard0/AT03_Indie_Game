@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MenuNavigation : MonoBehaviour
 {
     public delegate void MenuInputDelegate(float axis);
@@ -106,7 +107,7 @@ public class MenuNavigation : MonoBehaviour
         {
             CurrentButtonIndex--;
         }
-        Buttons[CurrentButtonIndex].Select();
+        Buttons[currentButtonIndex].Select();
         timer = 0;
     }
 }
