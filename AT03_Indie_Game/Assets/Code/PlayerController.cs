@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Range(0.1f, 1f)]
     public float crouchSpeedMultiplier = 0.5f; //crouch speed
     public float jumpForce = 0.5f; // jump force
+    public float sprintSpeedMultiplier = 1.25f; //sprint speed
 
     private CharacterController controller;
     private Vector3 motion;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float velocity = 0;
     private bool crouching = false;
     private bool isGrounded = false;
+    private bool sprint = false;
 
     // Awake is called before start method
     private void Awake()
@@ -62,6 +64,11 @@ public class PlayerController : MonoBehaviour
                     currentSpeed = speed * crouchSpeedMultiplier;
                     controller.height = 1;
                 }
+                else if(Input.GetKeyDown(KeyCode.LeftShift) == true)
+                {
+                    sprint = true;
+                    currentSpeed = speed * sprintSpeedMultiplier;
+                }
             }
         }
         if (crouching == true)
@@ -71,6 +78,14 @@ public class PlayerController : MonoBehaviour
                 crouching = false;
                 currentSpeed = speed;
                 controller.height = 2;
+            }
+        }
+        if (sprint == true)
+        {
+            if (Input.GetKeyUp(KeyCode.LeftShift) == true)
+            {
+                sprint = false;
+                currentSpeed = speed;
             }
         }
         ApplyMovement();
