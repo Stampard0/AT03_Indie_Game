@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             if(crouching == false)
             {
-                if(Input.GetKeyDown(KeyCode.Space) == true)
+                if(Input.GetKeyDown("Jump") == true)
                 {
                     velocity = jumpForce;
                 }
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
                     currentSpeed = speed * crouchSpeedMultiplier;
                     controller.height = 1;
                 }
-                else if(Input.GetKeyDown(KeyCode.LeftShift) == true)
+                else if(Input.GetKeyDown("Fire3") == true)
                 {
                     sprint = true;
                     currentSpeed = speed * sprintSpeedMultiplier;
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         }
         if (sprint == true)
         {
-            if (Input.GetKeyUp(KeyCode.LeftShift) == true)
+            if (Input.GetKeyUp("Fire3") == true)
             {
                 sprint = false;
                 currentSpeed = speed;

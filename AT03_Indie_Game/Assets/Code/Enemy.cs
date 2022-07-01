@@ -99,7 +99,7 @@ public class EnemyIdleState : EnemyBehaviourState
         timer = 0;
         Debug.Log("Idle state entered, waiting for " + idleTime + " seconds.");
         Instance.Anim.SetBool("isMoving", false);
-        Instance.AudioSource.PlayOneShot(idleClip);
+        //Instance.AudioSource.PlayOneShot(idleClip);
     }
 
     public override void OnStateExit()
@@ -152,13 +152,13 @@ public class EnemyWanderState : EnemyBehaviourState
             Random.Range(-Instance.bounds.extents.x, Instance.bounds.extents.x),
             Instance.transform.position.y,
             Random.Range(-Instance.bounds.extents.z, Instance.bounds.extents.z)
-            );
+            ) + Instance.bounds.center;
         targetPosition = randomPosInBounds;
         Instance.Agent.SetDestination(targetPosition);
         Debug.Log("Wander state entered with a target pos of " + targetPosition);
         Instance.Anim.SetBool("isMoving", true);
         Instance.Anim.SetBool("isChasing", false);
-        Instance.AudioSource.PlayOneShot(wanderClip);
+        //Instance.AudioSource.PlayOneShot(wanderClip);
     }
 
     public override void OnStateExit()
@@ -209,7 +209,7 @@ public class EnemyChaseState : EnemyBehaviourState
         Debug.Log("Entered chase state.");
         Instance.Anim.SetBool("isMoving", true);
         Instance.Anim.SetBool("isChasing", true);
-        Instance.AudioSource.PlayOneShot(chaseClip);
+        //Instance.AudioSource.PlayOneShot(chaseClip);
     }
 
     public override void OnStateExit()
