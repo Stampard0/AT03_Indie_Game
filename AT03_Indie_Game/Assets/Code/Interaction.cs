@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Interaction : MonoBehaviour
 {
-    public float distance = 2.5f;
+    [SerializeField] public float distance = 2.5f;
+    [SerializeField] private LayerMask interactionMask;
 
     // Update is called once per frame
     void Update()
@@ -15,12 +16,12 @@ public class Interaction : MonoBehaviour
             {
                 if(hit.transform.TryGetComponent(out IInteractable interaction) == true)
                 {
-                    Debug.DrawRay(transform.position, transform.forward * distance, Color.blue, 0.2f);
+                    Debug.DrawRay(transform.position, transform.forward * distance, Color.blue, 0.3f);
                     interaction.Activate();
                 }
                 else
                 {
-                    Debug.DrawRay(transform.position, transform.forward * distance, Color.red, 0.2f);
+                    Debug.DrawRay(transform.position, transform.forward * distance, Color.red, 0.3f);
                 }
             }
         }

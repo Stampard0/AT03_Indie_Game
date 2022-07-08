@@ -13,14 +13,17 @@ public class Enemy : FiniteStateMachine
     public EnemyChaseState chaseState;
 
     public NavMeshAgent Agent { get; private set; }
+    public PlayerController Player { get; private set; }
     public Animator Anim { get; private set; }
     public AudioSource AudioSource { get; private set; }
+    public bool ForceChasePlayer { get; private set; }
 
     protected override void Awake()
     {
         idleState = new EnemyIdleState(this, idleState);
         wanderState = new EnemyWanderState(this, wanderState);
         chaseState = new EnemyChaseState(this, chaseState);
+        GoalCollect.ObjectiveActivate += TriggerForceChasePlayer;
         entryState = idleState;
         if (TryGetComponent(out NavMeshAgent agent) == true)
         {
@@ -56,6 +59,15 @@ public class Enemy : FiniteStateMachine
         Gizmos.DrawWireCube(bounds.center, bounds.size);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, viewRadius);
+    }
+
+    private void TriggerForceChasePlayer()
+    {
+        if (ForceChasePlayer == false)
+        {
+            ForceChasePlayer = true;
+            SetState(chaseState);
+        }
     }
 }
 public abstract class EnemyBehaviourState : IState
@@ -219,11 +231,35 @@ public class EnemyChaseState : EnemyBehaviourState
 
     public override void OnStateUpdate()
     {
+        if(Instance)
         Instance.Agent.SetDestination(Instance.player.position);
 
-        if (Vector3.Distance(Instance.transform.position, Instance.player.position) > Instance.viewRadius)
+        if (Instance.ForceChasePlayer == false)
         {
-            Instance.SetState(Instance.wanderState);
+            if (Vector3.Distance(Instance.transform.position, Instance.player.position) > Instance.viewRadius)
+            {
+                Instance.SetState(Instance.wanderState);
+            }
         }
+        else
+        {
+            Instance.Agent.SetDestination(Instance.player.position);
+        }
+    }
+}
+
+public class StunState : EnemyBehaviourState
+{
+    public StunState(Enemy instance) : base(instance)
+    {
+
+    }
+    public override void OnStateEnter()
+    {
+
+    }
+    public override void OnStateUpdate()
+    {
+        
     }
 }

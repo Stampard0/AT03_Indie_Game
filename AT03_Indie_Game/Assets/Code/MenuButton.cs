@@ -67,7 +67,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
     /// <summary>
-    /// Use this method to invoke the activation event fot the button.
+    /// Use this method to invoke the activation event for the button.
     /// </summary>
     public void Activate()
     {

@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             if(crouching == false)
             {
-                if(Input.GetKeyDown("Jump") == true)
+                if(Input.GetAxis("Jump") >= 1)
                 {
                     velocity = jumpForce;
                 }
@@ -64,10 +64,11 @@ public class PlayerController : MonoBehaviour
                     currentSpeed = speed * crouchSpeedMultiplier;
                     controller.height = 1;
                 }
-                else if(Input.GetKeyDown("Fire3") == true)
+                else if(Input.GetAxis("Fire3") >= 1)
                 {
                     sprint = true;
                     currentSpeed = speed * sprintSpeedMultiplier;
+                    Debug.Log("Sprinting");
                 }
             }
         }
@@ -82,10 +83,11 @@ public class PlayerController : MonoBehaviour
         }
         if (sprint == true)
         {
-            if (Input.GetKeyUp("Fire3") == true)
+            if (Input.GetAxis("Fire3") == 0)
             {
                 sprint = false;
                 currentSpeed = speed;
+                Debug.Log("Not Sprinting");
             }
         }
         ApplyMovement();
