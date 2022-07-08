@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool crouching = false;
     private bool isGrounded = false;
     private bool sprint = false;
+    public static bool canMove = true;
 
     // Awake is called before start method
     private void Awake()
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         currentSpeed = speed;
+        canMove = true;
     }
 
     private void FixedUpdate()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
+    internal static bool mouseLookEnabled = true;
     public float sensitivity = 2.5f;
     public float drag = 1.5f;
 
@@ -11,6 +12,11 @@ public class MouseLook : MonoBehaviour
     private Vector2 mouseDirection; // stores cursor coordinates
     private Vector2 smoothing; // smoothed cursor movement
     private Vector2 result; // cursor end position
+
+    void Start()
+    {
+        mouseLookEnabled = true;
+    }
 
     private void Awake()
     {
@@ -22,12 +28,15 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mouseDirection = new Vector2(Input.GetAxisRaw("Mouse X") * sensitivity, Input.GetAxisRaw("Mouse Y") * sensitivity); // calculate mouse direction
-        smoothing = Vector2.Lerp(smoothing, mouseDirection, 1 / drag); // calculate smoothing
-        result += smoothing; // add smoothing to result
-        result.y = Mathf.Clamp(result.y, -80, 80); // limits y angle
+        if (mouseLookEnabled == true)
+        {
+            mouseDirection = new Vector2(Input.GetAxisRaw("Mouse X") * sensitivity, Input.GetAxisRaw("Mouse Y") * sensitivity); // calculate mouse direction
+            smoothing = Vector2.Lerp(smoothing, mouseDirection, 1 / drag); // calculate smoothing
+            result += smoothing; // add smoothing to result
+            result.y = Mathf.Clamp(result.y, -80, 80); // limits y angle
 
-        transform.localRotation = Quaternion.AngleAxis(-result.y, Vector3.right); //apply x axis rotation to camera
-        character.rotation = Quaternion.AngleAxis(result.x, character.up); // apply y rotation to character
+            transform.localRotation = Quaternion.AngleAxis(-result.y, Vector3.right); //apply x axis rotation to camera
+            character.rotation = Quaternion.AngleAxis(result.x, character.up); // apply y rotation to character
+        }
     }
 }

@@ -3,18 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : FiniteStateMachine
+public class Enemy : FiniteStateMachine, IInteractable
 {
     public Bounds bounds;
     public float viewRadius;
     public Transform player;
+    public float stunCooldown = 3f;
     public EnemyIdleState idleState;
     public EnemyWanderState wanderState;
     public EnemyChaseState chaseState;
+    public StunState stunState;
+
+    private float cooldownTimer = -1;
 
     public NavMeshAgent Agent { get; private set; }
     public PlayerController Player { get; private set; }
     public Animator Anim { get; private set; }
+    public float DistanceToPlayer
+    {
+        get
+        {
+            if(Player != null)
+            {
+                return Vector3.Distance(transform.position, Player.transform.position);
+            }
+            else
+            {
+                return -1;
+            }
+        }
+    }
     public AudioSource AudioSource { get; private set; }
     public bool ForceChasePlayer { get; private set; }
 
@@ -23,6 +41,7 @@ public class Enemy : FiniteStateMachine
         idleState = new EnemyIdleState(this, idleState);
         wanderState = new EnemyWanderState(this, wanderState);
         chaseState = new EnemyChaseState(this, chaseState);
+        stunState = new StunState(this, stunState);
         GoalCollect.ObjectiveActivate += TriggerForceChasePlayer;
         entryState = idleState;
         if (TryGetComponent(out NavMeshAgent agent) == true)
@@ -50,6 +69,11 @@ public class Enemy : FiniteStateMachine
     protected override void Update()
     {
         base.Update();
+
+        if(DistanceToPlayer <= viewRadius)
+        {
+            if(C)
+        }
     }
 
     protected override void OnDrawGizmos()
@@ -200,6 +224,27 @@ public class EnemyWanderState : EnemyBehaviourState
         Gizmos.DrawWireSphere(targetPosition, 0.5f);
     }
 }
+public class GameOverState : EnemyBehaviourState
+{
+    public GameOverState(Enemy instance) : base(instance)
+    {
+
+    }
+    public override void OnStateEnter()
+    {
+        Instance.Agent.isStopped = true;
+        PlayerController.canMove = false;
+        MouseLook.mouseLookEnabled = false;
+    }
+    public override void OnStateUpdate()
+    {
+
+    }
+    public override void OnStateExit()
+    {
+
+    }
+}
 [System.Serializable]
 public class EnemyChaseState : EnemyBehaviourState
 {
@@ -231,35 +276,83 @@ public class EnemyChaseState : EnemyBehaviourState
 
     public override void OnStateUpdate()
     {
-        if(Instance)
-        Instance.Agent.SetDestination(Instance.player.position);
-
-        if (Instance.ForceChasePlayer == false)
+        if(Instance.DistanceToPlayer <= Instance.viewRadius)
         {
-            if (Vector3.Distance(Instance.transform.position, Instance.player.position) > Instance.viewRadius)
+            if(Instance.DistanceToPlayer <= Instance.Agent.stoppingDistance)
             {
-                Instance.SetState(Instance.wanderState);
+                Instance.SetState(new GameOverState(Instance));
+            }
+            else
+            {
+                Instance.Agent.SetDestination(Instance.player.position);
             }
         }
         else
         {
-            Instance.Agent.SetDestination(Instance.player.position);
+            if (Instance.ForceChasePlayer == false)
+            {
+                if (Vector3.Distance(Instance.transform.position, Instance.player.position) > Instance.viewRadius)
+                {
+                    Instance.SetState(Instance.wanderState);
+                }
+            }
+            else
+            {
+                Instance.Agent.SetDestination(Instance.player.position);
+            }
         }
     }
 }
 
+[System.Serializable]
 public class StunState : EnemyBehaviourState
 {
-    public StunState(Enemy instance) : base(instance)
-    {
+    [SerializeField] private float stunTime;
 
+    private float timer = -1;
+
+    public float StunTimer { get { return stunTime; } }
+
+    public StunState(Enemy instance, StunState stun) : base(instance)
+    {
+        stunTime = stun.stunTime;
     }
     public override void OnStateEnter()
     {
-
+        Debug.Log("I is stunned");
+        Instance.Agent.isStopped = true;
+        timer = 0;
     }
     public override void OnStateUpdate()
     {
-        
+        if(timer >= 0)
+        {
+            timer += timer.deltaTime;
+            if(timer >= stunTime)
+            {
+                timer = -1;
+                if(Instance.ForceChasePlayer == false)
+                {
+                    if (Instance.Agent.isStopped == true)
+                    {
+                        Instance.SetState(Instance.idleState);
+                    }
+                    else
+                    {
+                        Instance.SetState(Instance.wanderState);
+                    }
+                }
+                else
+                {
+                    Instance.SetState(Instance.chaseState);
+                }
+            }
+        }
+    }
+    public override void OnStateExit()
+    {
+        Debug.Log("Exiting the stun state.");
+        throw new System.NotImplementedException();
     }
 }
+
