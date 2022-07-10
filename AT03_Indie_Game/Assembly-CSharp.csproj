@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,9 +53,6 @@
     <UnityVersion>2020.3.26f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Assets\Code\FiniteStateMachine.cs" />
     <Compile Include="Assets\Code\Interaction.cs" />
     <Compile Include="Assets\Code\Objective.cs" />
@@ -72,6 +69,7 @@
     <Compile Include="Assets\Code\MouseLook.cs" />
     <Compile Include="Assets\Code\TestingScript.cs" />
     <Compile Include="Assets\Code\TestInteractionToo1.cs" />
+    <Compile Include="Assets\Code\GameHUD.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

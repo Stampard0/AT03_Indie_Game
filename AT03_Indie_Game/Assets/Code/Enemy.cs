@@ -6,19 +6,21 @@ using UnityEngine.AI;
 public class Enemy : FiniteStateMachine, IInteractable
 {
     public Bounds bounds;
-    public float viewRadius;
+    [SerializeField] public float viewRadius = 5;
     public Transform player;
     public float stunCooldown = 3f;
-    public EnemyIdleState idleState;
-    public EnemyWanderState wanderState;
-    public EnemyChaseState chaseState;
-    public StunState stunState;
+    [SerializeField] public EnemyIdleState idleState;
+    [SerializeField] public EnemyWanderState wanderState;
+    [SerializeField] public EnemyChaseState chaseState;
+    [SerializeField] public StunState stunState;
 
     private float cooldownTimer = -1;
 
     public NavMeshAgent Agent { get; private set; }
     public PlayerController Player { get; private set; }
     public Animator Anim { get; private set; }
+    public float ViewRadius { get { return viewRadius; } }
+    public float DefaultSpeed { get; private set; }
     public float DistanceToPlayer
     {
         get
@@ -35,6 +37,9 @@ public class Enemy : FiniteStateMachine, IInteractable
     }
     public AudioSource AudioSource { get; private set; }
     public bool ForceChasePlayer { get; private set; }
+    public EnemyIdleState IdleState { get { return idleState; } }
+    public EnemyWanderState WanderState { get { return wanderState; } }
+    public EnemyChaseState ChaseState { get { return chaseState; } }
 
     protected override void Awake()
     {
@@ -56,6 +61,7 @@ public class Enemy : FiniteStateMachine, IInteractable
         {
             Anim = anim;
         }
+        Player = FindObjectOfType<PlayerController>();
     }
 
     // Start is called before the first frame update
@@ -63,6 +69,7 @@ public class Enemy : FiniteStateMachine, IInteractable
     {
         base.Start();
         // we can write custom code to be executed after the original Start definition is run
+        SetState(idleState);
     }
 
     // Update is called once per frame
@@ -72,7 +79,19 @@ public class Enemy : FiniteStateMachine, IInteractable
 
         if(DistanceToPlayer <= viewRadius)
         {
-            if(C)
+            if(CurrentState.GetType() != typeof(EnemyChaseState) && CurrentState.GetType() != typeof(GameOverState) && CurrentState.GetType() != typeof(StunState))
+            {
+                SetState(chaseState);
+            }
+        }
+
+        if(cooldownTimer >= 0)
+        {
+            cooldownTimer += Time.deltaTime;
+            if(cooldownTimer >= stunCooldown)
+            {
+                cooldownTimer = -1;
+            }
         }
     }
 
@@ -92,6 +111,22 @@ public class Enemy : FiniteStateMachine, IInteractable
             ForceChasePlayer = true;
             SetState(chaseState);
         }
+    }
+
+    public void Activate()
+    {
+        if(cooldownTimer < 0 && CurrentState.GetType() != typeof(StunState))
+        {
+            //Stun the enemy
+            StartCoroutine(TriggerStun());
+        }
+    }
+
+    private IEnumerator TriggerStun()
+    {
+        SetState(stunState);
+        yield return new WaitForSeconds(stunState.StunTimer);
+        cooldownTimer = 0;
     }
 }
 public abstract class EnemyBehaviourState : IState
@@ -147,10 +182,10 @@ public class EnemyIdleState : EnemyBehaviourState
 
     public override void OnStateUpdate()
     {
-        if (Vector3.Distance(Instance.transform.position, Instance.player.position) <= Instance.viewRadius)
-        {
-            Instance.SetState(Instance.chaseState);
-        }
+        //if (Vector3.Distance(Instance.transform.position, Instance.player.position) <= Instance.viewRadius)
+        //{
+            //Instance.SetState(Instance.chaseState);
+        //}
 
         if (timer >= 0)
         {
@@ -232,6 +267,7 @@ public class GameOverState : EnemyBehaviourState
     }
     public override void OnStateEnter()
     {
+        Debug.Log("Player Cought");
         Instance.Agent.isStopped = true;
         PlayerController.canMove = false;
         MouseLook.mouseLookEnabled = false;
@@ -242,7 +278,7 @@ public class GameOverState : EnemyBehaviourState
     }
     public override void OnStateExit()
     {
-
+        
     }
 }
 [System.Serializable]
@@ -254,10 +290,10 @@ public class EnemyChaseState : EnemyBehaviourState
     private AudioClip chaseClip;
 
     private float defaultSpeed = 0;
-    public EnemyChaseState(Enemy instance, EnemyChaseState chase) : base(instance)
+    public EnemyChaseState(Enemy instance, EnemyChaseState chaseState) : base(instance)
     {
-        chaseSpeed = chase.chaseSpeed;
-        chaseClip = chase.chaseClip;
+        chaseSpeed = chaseState.chaseSpeed;
+        chaseClip = chaseState.chaseClip;
     }
     public override void OnStateEnter()
     {
@@ -284,21 +320,21 @@ public class EnemyChaseState : EnemyBehaviourState
             }
             else
             {
-                Instance.Agent.SetDestination(Instance.player.position);
+                Instance.Agent.SetDestination(Instance.Player.transform.position);
             }
         }
         else
         {
             if (Instance.ForceChasePlayer == false)
             {
-                if (Vector3.Distance(Instance.transform.position, Instance.player.position) > Instance.viewRadius)
+                if (Vector3.Distance(Instance.transform.position, Instance.Player.transform.position) > Instance.viewRadius)
                 {
                     Instance.SetState(Instance.wanderState);
                 }
             }
             else
             {
-                Instance.Agent.SetDestination(Instance.player.position);
+                Instance.Agent.SetDestination(Instance.Player.transform.position);
             }
         }
     }
@@ -327,7 +363,7 @@ public class StunState : EnemyBehaviourState
     {
         if(timer >= 0)
         {
-            timer += timer.deltaTime;
+            timer += Time.deltaTime;
             if(timer >= stunTime)
             {
                 timer = -1;

@@ -28,11 +28,11 @@ public class GoalCollect : MonoBehaviour, IInteractable
         {
             GoalCount = GoalCount + 1;
         }
-        if (GoalCount == 3)
+        if (GoalCount > 3)
         {
+            allCollected = true;
             if (active == false)
             {
-                allCollected = true;
                 active = true;
                 ObjectiveActivate.Invoke();
             }

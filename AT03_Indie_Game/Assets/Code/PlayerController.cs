@@ -92,7 +92,10 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Not Sprinting");
             }
         }
-        ApplyMovement();
+        if (canMove == true)
+        {
+            ApplyMovement();
+        }
     }
 
     void ApplyMovement()
