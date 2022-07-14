@@ -8,7 +8,7 @@ public class Enemy : FiniteStateMachine, IInteractable
     public Bounds bounds;
     [SerializeField] public float viewRadius = 5;
     public Transform player;
-    public float stunCooldown = 3f;
+    [SerializeField] private float stunCooldown = 3f;
     [SerializeField] public EnemyIdleState idleState;
     [SerializeField] public EnemyWanderState wanderState;
     [SerializeField] public EnemyChaseState chaseState;
@@ -40,6 +40,7 @@ public class Enemy : FiniteStateMachine, IInteractable
     public EnemyIdleState IdleState { get { return idleState; } }
     public EnemyWanderState WanderState { get { return wanderState; } }
     public EnemyChaseState ChaseState { get { return chaseState; } }
+    public StunState StunState { get { return stunState; } }
 
     protected override void Awake()
     {
@@ -169,8 +170,8 @@ public class EnemyIdleState : EnemyBehaviourState
         idleTime = Random.Range(idleTimeRange.x, idleTimeRange.y);
         timer = 0;
         Debug.Log("Idle state entered, waiting for " + idleTime + " seconds.");
+        Instance.AudioSource.PlayOneShot(idleClip);
         Instance.Anim.SetBool("isMoving", false);
-        //Instance.AudioSource.PlayOneShot(idleClip);
     }
 
     public override void OnStateExit()
@@ -227,9 +228,9 @@ public class EnemyWanderState : EnemyBehaviourState
         targetPosition = randomPosInBounds;
         Instance.Agent.SetDestination(targetPosition);
         Debug.Log("Wander state entered with a target pos of " + targetPosition);
+        Instance.AudioSource.PlayOneShot(wanderClip);
         Instance.Anim.SetBool("isMoving", true);
         Instance.Anim.SetBool("isChasing", false);
-        //Instance.AudioSource.PlayOneShot(wanderClip);
     }
 
     public override void OnStateExit()
@@ -267,7 +268,7 @@ public class GameOverState : EnemyBehaviourState
     }
     public override void OnStateEnter()
     {
-        Debug.Log("Player Cought");
+        Debug.Log("Player Caught");
         Instance.Agent.isStopped = true;
         PlayerController.canMove = false;
         MouseLook.mouseLookEnabled = false;
@@ -335,6 +336,8 @@ public class EnemyChaseState : EnemyBehaviourState
             else
             {
                 Instance.Agent.SetDestination(Instance.Player.transform.position);
+                Instance.Anim.SetBool("isMoving", true);
+                Instance.Anim.SetBool("isChasing", true);
             }
         }
     }
@@ -346,6 +349,7 @@ public class StunState : EnemyBehaviourState
     [SerializeField] private float stunTime;
 
     private float timer = -1;
+    [SerializeField] private AudioClip stunClip;
 
     public float StunTimer { get { return stunTime; } }
 
@@ -356,6 +360,7 @@ public class StunState : EnemyBehaviourState
     public override void OnStateEnter()
     {
         Debug.Log("I is stunned");
+        Instance.AudioSource.PlayOneShot(stunClip);
         Instance.Agent.isStopped = true;
         timer = 0;
     }
@@ -388,7 +393,7 @@ public class StunState : EnemyBehaviourState
     public override void OnStateExit()
     {
         Debug.Log("Exiting the stun state.");
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 }
 

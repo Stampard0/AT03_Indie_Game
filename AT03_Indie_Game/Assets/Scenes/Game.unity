@@ -1118,11 +1118,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0e013730f70ec1449877abe41f195890, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1246,15 +1246,16 @@ MonoBehaviour:
   stunCooldown: 3
   idleState:
     idleTimeRange: {x: 1, y: 5}
-    idleClip: {fileID: 0}
+    idleClip: {fileID: 8300000, guid: 2f3f685e5bf917944a2b16b017e7e837, type: 3}
   wanderState:
     wanderSpeed: 1
-    wanderClip: {fileID: 0}
+    wanderClip: {fileID: 8300000, guid: fc4aa35671b44864eb0a9e56cc6fe823, type: 3}
   chaseState:
     chaseSpeed: 2
     chaseClip: {fileID: 0}
   stunState:
-    stunTime: 3
+    stunTime: 1
+    stunClip: {fileID: 8300000, guid: ed239143fd0ccfe4f8f37b5506e5a2e4, type: 3}
 --- !u!136 &370098194
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2580,11 +2581,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0e013730f70ec1449877abe41f195890, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2708,15 +2709,16 @@ MonoBehaviour:
   stunCooldown: 3
   idleState:
     idleTimeRange: {x: 1, y: 5}
-    idleClip: {fileID: 0}
+    idleClip: {fileID: 8300000, guid: 2f3f685e5bf917944a2b16b017e7e837, type: 3}
   wanderState:
     wanderSpeed: 1
-    wanderClip: {fileID: 0}
+    wanderClip: {fileID: 8300000, guid: fc4aa35671b44864eb0a9e56cc6fe823, type: 3}
   chaseState:
     chaseSpeed: 2
     chaseClip: {fileID: 0}
   stunState:
-    stunTime: 3
+    stunTime: 1
+    stunClip: {fileID: 8300000, guid: ed239143fd0ccfe4f8f37b5506e5a2e4, type: 3}
 --- !u!136 &804851585
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2889,7 +2891,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f69abce1533e8445ab6782fb622e205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalCount: 0
 --- !u!1 &830022796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3743,6 +3744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 2.5
+  debug: 0
   interactionMask:
     serializedVersion: 2
     m_Bits: 8
@@ -3810,15 +3812,16 @@ MonoBehaviour:
   stunCooldown: 3
   idleState:
     idleTimeRange: {x: 1, y: 5}
-    idleClip: {fileID: 0}
+    idleClip: {fileID: 8300000, guid: 2f3f685e5bf917944a2b16b017e7e837, type: 3}
   wanderState:
     wanderSpeed: 1
-    wanderClip: {fileID: 0}
+    wanderClip: {fileID: 8300000, guid: fc4aa35671b44864eb0a9e56cc6fe823, type: 3}
   chaseState:
     chaseSpeed: 2
     chaseClip: {fileID: 0}
   stunState:
-    stunTime: 3
+    stunTime: 1
+    stunClip: {fileID: 8300000, guid: ed239143fd0ccfe4f8f37b5506e5a2e4, type: 3}
 --- !u!136 &968225154
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3907,11 +3910,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0e013730f70ec1449877abe41f195890, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4326,7 +4329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f69abce1533e8445ab6782fb622e205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalCount: 0
 --- !u!1 &1033282252
 GameObject:
   m_ObjectHideFlags: 0
@@ -4340,6 +4342,7 @@ GameObject:
   - component: {fileID: 1033282255}
   - component: {fileID: 1033282254}
   - component: {fileID: 1033282257}
+  - component: {fileID: 1033282258}
   m_Layer: 3
   m_Name: Door
   m_TagString: Untagged
@@ -4435,6 +4438,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a462c333b6b47c4b8198b8174ef6d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishClip: {fileID: 8300000, guid: 95fc4019575425346877a198cffc6d29, type: 3}
+--- !u!82 &1033282258
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033282252}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1037735933
 GameObject:
   m_ObjectHideFlags: 0
@@ -4733,7 +4833,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f69abce1533e8445ab6782fb622e205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalCount: 0
 --- !u!1 &1156446973
 GameObject:
   m_ObjectHideFlags: 0
@@ -5334,7 +5433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3881715c9e15f4e972d44101be65c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crosshairImg: {fileID: 0}
+  crosshairImg: {fileID: 312688190}
   objectiveTxt: {fileID: 1369648958}
   objectiveA: Collect all objectives.
   objectiveB: Get to the door!
@@ -6096,7 +6195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f69abce1533e8445ab6782fb622e205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalCount: 0
 --- !u!1 &1478698681
 GameObject:
   m_ObjectHideFlags: 0
@@ -6562,6 +6660,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1617852268}
+  - component: {fileID: 1617852269}
   m_Layer: 0
   m_Name: Goals
   m_TagString: Untagged
@@ -6587,6 +6686,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1617852269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617852267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b178697c54f30498699a95a04c908a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GoalCount: 0
+  GoalTotal: 0
 --- !u!1 &1638489839
 GameObject:
   m_ObjectHideFlags: 0
@@ -7464,11 +7577,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0e013730f70ec1449877abe41f195890, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -7592,15 +7705,16 @@ MonoBehaviour:
   stunCooldown: 3
   idleState:
     idleTimeRange: {x: 1, y: 5}
-    idleClip: {fileID: 0}
+    idleClip: {fileID: 8300000, guid: 2f3f685e5bf917944a2b16b017e7e837, type: 3}
   wanderState:
     wanderSpeed: 1
-    wanderClip: {fileID: 0}
+    wanderClip: {fileID: 8300000, guid: fc4aa35671b44864eb0a9e56cc6fe823, type: 3}
   chaseState:
     chaseSpeed: 2
     chaseClip: {fileID: 0}
   stunState:
-    stunTime: 3
+    stunTime: 1
+    stunClip: {fileID: 8300000, guid: ed239143fd0ccfe4f8f37b5506e5a2e4, type: 3}
 --- !u!136 &1947767960
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 {
                     sprint = true;
                     currentSpeed = speed * sprintSpeedMultiplier;
-                    Debug.Log("Sprinting");
+                    //Debug.Log("Sprinting");
                 }
             }
         }

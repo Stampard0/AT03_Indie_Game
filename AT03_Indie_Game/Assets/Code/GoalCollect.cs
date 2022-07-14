@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GoalCollect : MonoBehaviour, IInteractable
 {
-    public float GoalCount = 0;
-
     [SerializeField] public static bool allCollected = false;
     
     public delegate void ObjectiveDelegate();
@@ -14,30 +12,38 @@ public class GoalCollect : MonoBehaviour, IInteractable
 
     public static event ObjectiveDelegate ObjectiveActivate = delegate { ObjectiveActivate = delegate { }; };
 
+    public delegate void GoalDelegate();
+
+    public static event GoalDelegate GoalActivate;
     private void Awake()
     {
         active = false;
-        GoalCount = 0;
         allCollected = false;
-        //Objective.ObjectiveActivate += allCollected;
+        GoalCounting.FinalActivate += Final;
+        //GoalTotal = GoalCount;
+        //ObjectiveActivate += allCollected;
     }
 
     public void Activate()
     {
         if (allCollected == false)
         {
-            GoalCount = GoalCount + 1;
+            GoalActivate.Invoke();
         }
-        if (GoalCount > 3)
-        {
-            allCollected = true;
-            if (active == false)
-            {
-                active = true;
-                ObjectiveActivate.Invoke();
-            }
-        }
+        //if (GoalCount > 3)
+        //{
+            
+        //}
         transform.position = transform.position + new Vector3(0.0f, -5.0f, 0.0f);
     }
 
+    private void Final()
+    {
+        if (active == false)
+        {
+            allCollected = true;
+            active = true;
+            ObjectiveActivate.Invoke();
+        }
+    }
 }

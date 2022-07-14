@@ -35,6 +35,17 @@ public class GameHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Escape) == true)
+        {
+            Application.Quit();
+        }
+    }
+
+    public void SetCrosshairColour(Color colour)
+    {
+        if(crosshairImg.color != colour)
+        {
+            crosshairImg.color = colour;
+        }
     }
 }

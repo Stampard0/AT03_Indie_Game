@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\FiniteStateMachine.cs" />
+    <Compile Include="Assets\Code\GameHUD.cs" />
     <Compile Include="Assets\Code\Interaction.cs" />
     <Compile Include="Assets\Code\Objective.cs" />
     <Compile Include="Assets\Code\MenuNavigation.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Assets\Code\MouseLook.cs" />
     <Compile Include="Assets\Code\TestingScript.cs" />
     <Compile Include="Assets\Code\TestInteractionToo1.cs" />
-    <Compile Include="Assets\Code\GameHUD.cs" />
+    <Compile Include="Assets\Code\GoalCounting.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
