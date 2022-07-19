@@ -50,13 +50,14 @@ public class Enemy : FiniteStateMachine, IInteractable
         stunState = new StunState(this, stunState);
         GoalCollect.ObjectiveActivate += TriggerForceChasePlayer;
         entryState = idleState;
+        Objective.VictoryEvent += delegate { SetState(new GameOverState(this)); };
         if (TryGetComponent(out NavMeshAgent agent) == true)
         {
             Agent = agent;
         }
         if (TryGetComponent(out AudioSource aSrc) == true)
         {
-            Agent = agent;
+            AudioSource = aSrc;
         }
         if(transform.GetChild(0).TryGetComponent(out Animator anim) == true)
         {
@@ -153,7 +154,7 @@ public class EnemyIdleState : EnemyBehaviourState
     [SerializeField]
     private Vector2 idleTimeRange = new Vector2(3, 10);
     [SerializeField]
-    private AudioClip idleClip;
+    public AudioClip idleClip;
 
     private float timer = -1;
     private float idleTime = 0;
@@ -170,7 +171,7 @@ public class EnemyIdleState : EnemyBehaviourState
         idleTime = Random.Range(idleTimeRange.x, idleTimeRange.y);
         timer = 0;
         Debug.Log("Idle state entered, waiting for " + idleTime + " seconds.");
-        Instance.AudioSource.PlayOneShot(idleClip);
+        Instance.AudioSource.PlayOneShot(idleClip, 0.5f);
         Instance.Anim.SetBool("isMoving", false);
     }
 
@@ -207,7 +208,7 @@ public class EnemyWanderState : EnemyBehaviourState
     [SerializeField]
     private float wanderSpeed = 3.5f;
     [SerializeField]
-    private AudioClip wanderClip;
+    public AudioClip wanderClip;
 
     public EnemyWanderState(Enemy instance, EnemyWanderState wander) : base(instance)
     {
@@ -228,7 +229,7 @@ public class EnemyWanderState : EnemyBehaviourState
         targetPosition = randomPosInBounds;
         Instance.Agent.SetDestination(targetPosition);
         Debug.Log("Wander state entered with a target pos of " + targetPosition);
-        Instance.AudioSource.PlayOneShot(wanderClip);
+        Instance.AudioSource.PlayOneShot(clip: wanderClip, volumeScale: 0.5f);
         Instance.Anim.SetBool("isMoving", true);
         Instance.Anim.SetBool("isChasing", false);
     }
@@ -269,6 +270,10 @@ public class GameOverState : EnemyBehaviourState
     public override void OnStateEnter()
     {
         Debug.Log("Player Caught");
+        if(Instance.DistanceToPlayer <= Instance.Agent.stoppingDistance)
+        {
+            GameHUD.Instance.ActivateEndPrompt(false);
+        }
         Instance.Agent.isStopped = true;
         PlayerController.canMove = false;
         MouseLook.mouseLookEnabled = false;
@@ -288,7 +293,7 @@ public class EnemyChaseState : EnemyBehaviourState
     [SerializeField]
     private float chaseSpeed = 5f;
     [SerializeField]
-    private AudioClip chaseClip;
+    public AudioClip chaseClip;
 
     private float defaultSpeed = 0;
     public EnemyChaseState(Enemy instance, EnemyChaseState chaseState) : base(instance)
@@ -303,7 +308,7 @@ public class EnemyChaseState : EnemyBehaviourState
         Debug.Log("Entered chase state.");
         Instance.Anim.SetBool("isMoving", true);
         Instance.Anim.SetBool("isChasing", true);
-        //Instance.AudioSource.PlayOneShot(chaseClip);
+        Instance.AudioSource.PlayOneShot(chaseClip, 0.5f);
     }
 
     public override void OnStateExit()
@@ -349,18 +354,19 @@ public class StunState : EnemyBehaviourState
     [SerializeField] private float stunTime;
 
     private float timer = -1;
-    [SerializeField] private AudioClip stunClip;
+    [SerializeField] public AudioClip stunClip;
 
     public float StunTimer { get { return stunTime; } }
 
     public StunState(Enemy instance, StunState stun) : base(instance)
     {
         stunTime = stun.stunTime;
+        stunClip = stun.stunClip;
     }
     public override void OnStateEnter()
     {
         Debug.Log("I is stunned");
-        Instance.AudioSource.PlayOneShot(stunClip);
+        Instance.AudioSource.PlayOneShot(stunClip, 0.5f);
         Instance.Agent.isStopped = true;
         timer = 0;
     }

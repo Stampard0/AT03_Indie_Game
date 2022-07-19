@@ -11,10 +11,12 @@ public class TestingScript : MonoBehaviour
         Debug.Log(message);
     }
 
-    public int sceneIndex = 0;
+    public int gameScene = 0;
+    public int mainMenu = 0;
     public void StartGame()
     {
-        SceneManager.LoadScene(sceneIndex);
+        Debug.Log("Starting Game");
+        SceneManager.LoadScene(gameScene);
     }
     public void Help()
     {
@@ -31,5 +33,15 @@ public class TestingScript : MonoBehaviour
     {
         Debug.Log("Quitting");
         Application.Quit();
+    }
+    public void MainMenu()
+    {
+        Debug.Log("Retuning to Main Menu");
+        SceneManager.LoadScene(mainMenu);
+    }
+    public void Retry()
+    {
+        Debug.Log("Reset");
+        SceneManager.LoadScene(gameScene);
     }
 }

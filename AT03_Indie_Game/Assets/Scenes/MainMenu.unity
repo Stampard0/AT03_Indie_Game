@@ -804,8 +804,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColour: {r: 1, g: 1, b: 1, a: 0}
-  selectedColour: {r: 0, g: 0, b: 0, a: 1}
-  highlightedColour: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
+  selectedColour: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+  highlightedColour: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   onActivate:
     m_PersistentCalls:
       m_Calls:
@@ -911,8 +911,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColour: {r: 1, g: 1, b: 1, a: 0}
-  selectedColour: {r: 0, g: 0, b: 0, a: 1}
-  highlightedColour: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
+  selectedColour: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+  highlightedColour: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   onActivate:
     m_PersistentCalls:
       m_Calls:
@@ -1185,8 +1185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColour: {r: 1, g: 1, b: 1, a: 0}
-  selectedColour: {r: 0, g: 0, b: 0, a: 1}
-  highlightedColour: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
+  selectedColour: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+  highlightedColour: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   onActivate:
     m_PersistentCalls:
       m_Calls:
@@ -1371,7 +1371,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   helpMenu: {fileID: 1055549809}
-  sceneIndex: 1
+  gameScene: 1
+  mainMenu: 0
 --- !u!4 &953989489
 Transform:
   m_ObjectHideFlags: 0
