@@ -206,7 +206,7 @@ public class EnemyWanderState : EnemyBehaviourState
 {
     private Vector3 targetPosition;
     [SerializeField]
-    private float wanderSpeed = 3.5f;
+    private float wanderSpeed = 5.5f;
     [SerializeField]
     public AudioClip wanderClip;
 
@@ -291,7 +291,7 @@ public class GameOverState : EnemyBehaviourState
 public class EnemyChaseState : EnemyBehaviourState
 {
     [SerializeField]
-    private float chaseSpeed = 5f;
+    private float chaseSpeed = 9f;
     [SerializeField]
     public AudioClip chaseClip;
 
